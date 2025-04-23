@@ -1,0 +1,66 @@
+.pivot-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .pivot-table thead tr {
+    background-color: #3498db;
+    color: white;
+    text-align: left;
+  }
+  
+  .pivot-table th,
+  .pivot-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  .pivot-table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .pivot-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .pivot-table tbody tr:last-of-type {
+    border-bottom: 2px solid #3498db;
+  }
+  
+  .pivot-table tbody tr:hover {
+    background-color: #f1f7fd;
+  }
+  
+  .pivot-table th {
+    position: sticky;
+    top: 0;
+    background-color: #3498db;
+    font-weight: 500;
+  }
+  
+  .pivot-table .total-row {
+    font-weight: bold;
+    background-color: #e8f4fc !important;
+  }
+  
+  .pivot-table .grand-total {
+    font-weight: bold;
+    background-color: #d4e6f7 !important;
+  }
+  
+  .pivot-table .highlight {
+    background-color: #fffacd;
+  }
+  
+  .pivot-table .negative {
+    color: #e74c3c;
+  }
+  
+  .pivot-table .positive {
+    color: #2ecc71;
+  }
