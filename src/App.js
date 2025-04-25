@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FileUploader from './components/FileUploader';
-import Dropdowns from './components/Dropdowns';
+import PivotControls from './components/PivotControls';
 import PivotTable from './components/PivotTable';
 import DataHandler from './components/DataHandler';
 import './App.css';
@@ -11,31 +11,31 @@ function App() {
   const [numericColumns, setNumericColumns] = useState([]);
   const [rowFields, setRowFields] = useState([]);
   const [colFields, setColFields] = useState([]);
-  const [valueAggregations, setValueAggregations] = useState([]);
+  const [valueFields, setValueFields] = useState([]);
 
   const handleFileUpload = (file) => {
     DataHandler.handleFileUpload(file, setCsvData, setColumns, setNumericColumns);
     setRowFields([]);
     setColFields([]);
-    setValueAggregations([]);
+    setValueFields([]);
   };
 
   return (
     <div className="app-container">
       <FileUploader onUpload={handleFileUpload} />
 
-      <Dropdowns
+      <PivotControls
         columns={columns}
         numericColumns={numericColumns}
         rowFields={rowFields}
         colFields={colFields}
-        valueAggregations={valueAggregations}
+        valueFields={valueFields}
         setRowFields={setRowFields}
         setColFields={setColFields}
-        setValueAggregations={setValueAggregations}
+        setValueFields={setValueFields}
       />
 
-      {csvData.length > 0 && valueAggregations.length > 0 && (
+      {csvData.length > 0 && valueFields.length > 0 && (
         (rowFields.length > 0 || colFields.length > 0) && (
           <div className="table-wrapper">
             <PivotTable
@@ -43,11 +43,11 @@ function App() {
                 csvData,
                 rowFields,
                 colFields,
-                valueAggregations
+                valueFields
               )}
               rowFields={rowFields}
               colFields={colFields}
-              valueAggregations={valueAggregations}
+              valueFields={valueFields}
             />
           </div>
         )

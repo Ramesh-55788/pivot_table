@@ -1,4 +1,4 @@
-/* Reset default margin and padding for the body and html */
+
 html, body {
     margin: 0;
     padding: 0;
@@ -8,9 +8,9 @@ html, body {
   
   .app-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 100%; /* Make sure it takes up the full width */
-    margin: 0 auto; /* Centers the content */
-    padding: 0; /* Removed padding from all sides */
+    width: 100%; 
+    margin: 0 auto; 
+    padding: 0; 
     background-color: #f8f9fa;
     min-height: 100vh;
   }
@@ -42,8 +42,8 @@ html, body {
     overflow-x: auto;
     margin-top: 20px;
     padding-bottom: 20px;
-    padding-left: 0; /* Removed left padding */
-    padding-right: 0; /* Removed right padding */
+    padding-left: 0; 
+    padding-right: 0; 
   }
   
   .table-wrapper::-webkit-scrollbar {
