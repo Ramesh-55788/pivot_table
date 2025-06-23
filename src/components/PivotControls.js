@@ -26,31 +26,18 @@ const PivotControls = ({
     const field = draggedItem;
     const isMeasure = measureColumns.includes(field);
 
-    if ((targetArea === 'row' || targetArea === 'col') && isMeasure) {
-      return;
-    }
+    if ((targetArea === 'row' || targetArea === 'col') && isMeasure) return;
+    if (targetArea === 'value' && !isMeasure) return;
 
-    if (targetArea === 'value' && !isMeasure) {
-      return;
+    if (targetArea === 'row' && !rowFields.includes(field)) {
+      setRowFields([...rowFields, field]);
     }
-
-    if (targetArea === 'row') {
-      if (!rowFields.includes(field)) {
-        setRowFields([...rowFields, field]);
-        if (colFields.includes(field)) setColFields(colFields.filter(f => f !== field));
-        if (valueFields.some(vf => vf.field === field)) setValueFields(valueFields.filter(vf => vf.field !== field));
-      }
-    } 
-    else if (targetArea === 'col') {
-      if (!colFields.includes(field)) {
-        setColFields([...colFields, field]);
-        if (rowFields.includes(field)) setRowFields(rowFields.filter(f => f !== field));
-        if (valueFields.some(vf => vf.field === field)) setValueFields(valueFields.filter(vf => vf.field !== field));
-      }
-    } 
+    else if (targetArea === 'col' && !colFields.includes(field)) {
+      setColFields([...colFields, field]);
+    }
     else if (targetArea === 'value') {
       setValueFields([...valueFields, { field, aggregation: 'sum' }]);
-    }
+    } 
   };
 
   const handleDragOver = (e) => {
@@ -60,15 +47,11 @@ const PivotControls = ({
   const handleRemoveField = (field, area, index) => {
     if (area === 'row') setRowFields(rowFields.filter(f => f !== field));
     else if (area === 'col') setColFields(colFields.filter(f => f !== field));
-    else if (area === 'value') {
-      setValueFields(valueFields.filter((_, i) => i !== index));
-    }
+    else if (area === 'value') setValueFields(valueFields.filter((_, i) => i !== index));
   };
 
   const handleAggregationChange = (index, aggregation) => {
-    setValueFields(valueFields.map((vf, i) => 
-      i === index ? { ...vf, aggregation } : vf
-    ));
+    setValueFields(valueFields.map((vf, i) => i === index ? { ...vf, aggregation } : vf));
   };
 
   const availableFields = columns.filter(
@@ -85,7 +68,7 @@ const PivotControls = ({
         <h3>Available Fields</h3>
         <div className="fields-list">
           {availableFields.map(field => (
-            <div 
+            <div
               key={field}
               className={`field-item ${getFieldTypeClass(field)}`}
               draggable
@@ -98,8 +81,7 @@ const PivotControls = ({
         </div>
       </div>
 
-      <div 
-        className="drop-area rows-area"
+      <div className="drop-area rows-area"
         onDrop={(e) => handleDrop(e, 'row')}
         onDragOver={handleDragOver}
       >
@@ -112,8 +94,7 @@ const PivotControls = ({
         ))}
       </div>
 
-      <div 
-        className="drop-area cols-area"
+      <div className="drop-area cols-area"
         onDrop={(e) => handleDrop(e, 'col')}
         onDragOver={handleDragOver}
       >
@@ -126,19 +107,15 @@ const PivotControls = ({
         ))}
       </div>
 
-      <div 
-        className="drop-area values-area"
-        onDrop={(e) => handleDrop(e, 'value')}
-        onDragOver={handleDragOver}
+      <div className="drop-area values-area" 
+      onDrop={(e) => handleDrop(e, 'value')}
+      onDragOver={handleDragOver}
       >
         <h3>Values</h3>
-        {valueFields.map(({field, aggregation}, index) => (
+        {valueFields.map(({ field, aggregation }, index) => (
           <div key={`${field}-${index}`} className="field-item measure-field">
             {`${field} `}
-            <select
-              value={aggregation}
-              onChange={(e) => handleAggregationChange(index, e.target.value)}
-            >
+            <select value={aggregation} onChange={(e) => handleAggregationChange(index, e.target.value)}>
               <option value="sum">Sum</option>
               <option value="avg">Average</option>
               <option value="min">Min</option>

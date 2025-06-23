@@ -11,6 +11,7 @@ const DataHandler = {
         const numericCols = columns.filter(col =>
           data.some(row => !isNaN(parseFloat(row[col])) && isFinite(row[col]))
         );
+        // console.log(data);
         setCsvData(data);
         setColumns(columns);
         setNumericColumns(numericCols);
@@ -21,6 +22,8 @@ const DataHandler = {
   generatePivotData: (csvData, rowFields, colFields, valueFields) => {
     const pivotMap = new Map();
     const colKeySet = new Set();
+    // console.log(pivotMap);
+    // console.log(colKeySet);
 
     const aggFuncs = {
       sum: arr => arr.reduce((a, b) => a + b, 0),
@@ -37,10 +40,8 @@ const DataHandler = {
       if (!pivotMap.has(rowKey)) pivotMap.set(rowKey, {});
       const rowMap = pivotMap.get(rowKey);
 
-      valueFields.forEach(({field, aggregation}) => {
-        const colKey = colFields.length > 0 
-          ? colKeyBase + ` | ${field} (${aggregation})`
-          : `${field} (${aggregation})`;
+      valueFields.forEach(({ field, aggregation }) => {
+        const colKey = colFields.length > 0 ? colKeyBase + ` | ${field} (${aggregation})` : `${field} (${aggregation})`;
         colKeySet.add(colKey);
 
         if (!rowMap[colKey]) rowMap[colKey] = [];
